@@ -6,7 +6,7 @@
     },
     {
       "source": "/",
-      "destination": "/KM_unsigned.mobileconfig"
+      "destination": "/api/index.py"
     }
   ],
   "headers": [

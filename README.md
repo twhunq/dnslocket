@@ -1,12 +1,10 @@
 # Hướng dẫn sử dụng Server MobileConfig
 
-## Cách 1: Link chung (Cũ)
-- Truy cập thẳng vào domain: `https://dnslocket.vercel.app`
-- ID NextDNS đang dùng: `8cb53e` (Của bạn)
+Để quản lý và chặn người dùng cụ thể, bạn cần sửa dụng link riêng.
 
-## Cách 2: Link riêng cho từng người (Mới - Khuyên dùng)
-Để quản lý và chặn người dùng cụ thể, hãy gửi cho mỗi người một link riêng biệt.
+**Link trang chủ (Link chung) đã bị vô hiệu hóa.**
 
+## Link riêng cho từng người
 Cấu trúc link:
 `https://dnslocket.vercel.app/dp/TenNguoiDung`
 
@@ -18,7 +16,7 @@ Ví dụ:
 ### Cách chặn người dùng:
 1. Vào trang quản trị NextDNS (ID `8cb53e`).
 2. Mục **Logs** hoặc **Analytics**.
-3. Bạn sẽ thấy tên thiết bị hiện lên là `LOCKET GOLD - Tung`, `LOCKET GOLD - Hoa`... thay vì chung chung.
+3. Bạn sẽ thấy tên thiết bị hiện lên là `LOCKET GOLD - Tung`, `LOCKET GOLD - Hoa`...
 4. Bạn có thể lọc và chặn theo tên thiết bị hoặc profile ID tương ứng.
 
 ---
@@ -28,6 +26,6 @@ Mỗi khi sửa code, bạn cần chạy lệnh sau để cập nhật lên Verc
 
 ```bash
 git add .
-git commit -m "update user id and guide"
+git commit -m "disable general link"
 git push
 ```
