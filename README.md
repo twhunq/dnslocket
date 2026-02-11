@@ -1,36 +1,33 @@
 # Hướng dẫn sử dụng Server MobileConfig
 
-Để tự động tải `KM.mobileconfig` khi truy cập domain:
+## Cách 1: Link chung (Cũ)
+- Truy cập thẳng vào domain: `https://dnslocket.vercel.app`
+- ID NextDNS đang dùng: `8cb53e` (Của bạn)
 
-## Cách 1: Chạy Local (Khi bật máy tính)
-1. **Chạy Server:**
-   Mở terminal tại thư mục này và chạy lệnh:
-   ```bash
-   python start_server.py
-   ```
-   Server sẽ chạy tại `http://localhost:8000`.
+## Cách 2: Link riêng cho từng người (Mới - Khuyên dùng)
+Để quản lý và chặn người dùng cụ thể, hãy gửi cho mỗi người một link riêng biệt.
 
-2. **Cấu hình Domain:**
-   - Trỏ domain của bạn về địa chỉ IP của máy tính chạy server này.
-   - Nếu chạy trên máy cá nhân sau router/modem, bạn cần **Port Forward** cổng 8000 trên router về IP máy tính của bạn.
+Cấu trúc link:
+`https://dnslocket.vercel.app/dp/TenNguoiDung`
 
-## Cách 2: Chạy Online 24/7 (Khuyên dùng)
-Để link hoạt động ngay cả khi tắt máy tính, bạn cần deploy lên server cloud. **Vercel** là giải pháp miễn phí và dễ nhất.
+Ví dụ:
+- Cho bạn Tùng: `https://dnslocket.vercel.app/dp/Tung`
+- Cho bạn Hoa: `https://dnslocket.vercel.app/dp/Hoa`
+- Cho khách: `https://dnslocket.vercel.app/dp/Khach1`
 
-1. **Chuẩn bị:**
-   - Thư mục này đã có sẵn file `vercel.json` để cấu hình tự động.
-   - Đảm bảo file `KM.mobileconfig` nằm cùng thư mục.
+### Cách chặn người dùng:
+1. Vào trang quản trị NextDNS (ID `8cb53e`).
+2. Mục **Logs** hoặc **Analytics**.
+3. Bạn sẽ thấy tên thiết bị hiện lên là `LOCKET GOLD - Tung`, `LOCKET GOLD - Hoa`... thay vì chung chung.
+4. Bạn có thể lọc và chặn theo tên thiết bị hoặc profile ID tương ứng.
 
-2. **Deploy lên Vercel:**
-   - **Cách 1 (Dễ nhất):** Cài đặt [Vercel CLI](https://vercel.com/cli) rồi chạy lệnh `vercel` tại thư mục này.
-   - **Cách 2:** Đẩy thư mục này lên GitHub/GitLab, sau đó vào [Vercel.com](https://vercel.com) import repo vừa tạo.
+---
 
-3. **Truy cập:**
-   - Vercel sẽ cấp cho bạn một domain (ví dụ: `du-an-cua-ban.vercel.app`).
-   - Vào domain đó trên iPhone/iPad, profile sẽ tự động tải về.
+## Cài đặt & Cập nhật
+Mỗi khi sửa code, bạn cần chạy lệnh sau để cập nhật lên Vercel:
 
-## Lưu ý kỹ thuật
-File `vercel.json` hoặc `start_server.py` đều có nhiệm vụ quan trọng là thêm header:
-- `Content-Type: application/x-apple-aspen-config`
-- `Content-Disposition: attachment; filename="KM.mobileconfig"`
-Điều này giúp iOS nhận diện đây là profile cài đặt chứ không phải một file text bình thường.
+```bash
+git add .
+git commit -m "update user id and guide"
+git push
+```

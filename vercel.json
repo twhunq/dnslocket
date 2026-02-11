@@ -1,14 +1,12 @@
 {
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/",
-      "destination": "/KM_unsigned.mobileconfig",
-      "permanent": false
+      "source": "/dp/:name",
+      "destination": "/api/index.py?name=:name"
     },
     {
-      "source": "/KM.mobileconfig",
-      "destination": "/KM_unsigned.mobileconfig",
-      "permanent": false
+      "source": "/",
+      "destination": "/KM_unsigned.mobileconfig"
     }
   ],
   "headers": [
