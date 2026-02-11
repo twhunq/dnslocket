@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/KM.mobileconfig",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/KM.mobileconfig",
