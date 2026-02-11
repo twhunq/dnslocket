@@ -17,7 +17,7 @@
             <key>PayloadDisplayName</key>
             <string>LOCKET GOLD - Marineshop</string>
             <key>PayloadOrganization</key>
-            <string>Locket Gold giá rẻ</string>
+            <string>Locket Gold</string>
             <key>PayloadIdentifier</key>
             <string>com.camsitup.controld.dnsprofile</string>
             <key>PayloadType</key>
@@ -31,9 +31,9 @@
     <string>CHẶN THU HỒI LOCKET GOLD
 </string>
     <key>PayloadDisplayName</key>
-    <string>TUẤN HƯNG LOCKET GOLD</string>
+    <string>LOCKET GOLD - Marineshop</string>
     <key>PayloadOrganization</key>
-    <string>Locket Gold giá rẻ</string>
+    <string>Locket Gold</string>
     <key>PayloadIdentifier</key>
     <string>com.camsitup.profile.controld.doh</string>
     <key>PayloadRemovalDisallowed</key>
