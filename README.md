@@ -1,23 +1,27 @@
 # Hướng dẫn sử dụng Server MobileConfig
 
-Để quản lý và chặn người dùng cụ thể, bạn cần sửa dụng link riêng.
+Để quản lý và chặn người dùng cụ thể, bạn cần sử dụng link có kèm ID.
 
 **Link trang chủ (Link chung) đã bị vô hiệu hóa.**
 
-## Link riêng cho từng người
-Cấu trúc link:
-`https://dnslocket.vercel.app/dp/TenNguoiDung`
+## Hướng dẫn tạo Link (Bắt buộc dùng ID)
+
+Bạn cần tạo ID trên NextDNS trước, sau đó gắn vào link.
+
+**Bước 1:** Vào NextDNS tạo Hồ sơ mới -> Lấy ID mới (ví dụ: `112233`).
+**Bước 2:** Cấu hình chặn thu hồi (xem file `NEXTDNS_GUIDE.md`) cho hồ sơ đó.
+**Bước 3:** Gửi link cho khách theo cấu trúc: `.../dp/TenKhach?id=ID`
+
+Cấu trúc: `https://dnslocket.vercel.app/dp/TenKhach?id=ID_CUA_BAN`
 
 Ví dụ:
-- Cho bạn Tùng: `https://dnslocket.vercel.app/dp/Tung`
-- Cho bạn Hoa: `https://dnslocket.vercel.app/dp/Hoa`
-- Cho khách: `https://dnslocket.vercel.app/dp/Khach1`
+- Khách A dùng ID `112233`: `https://dnslocket.vercel.app/dp/KhachA?id=112233`
+- Khách B dùng ID `224466`: `https://dnslocket.vercel.app/dp/KhachB?id=224466`
 
-### Cách chặn người dùng:
-1. Vào trang quản trị NextDNS (ID `8cb53e`).
-2. Mục **Logs** hoặc **Analytics**.
-3. Bạn sẽ thấy tên thiết bị hiện lên là `LOCKET GOLD - Tung`, `LOCKET GOLD - Hoa`...
-4. Bạn có thể lọc và chặn theo tên thiết bị hoặc profile ID tương ứng.
+### Cách hủy dịch vụ:
+- Vào NextDNS -> Chọn hồ sơ tương ứng.
+- Xóa hồ sơ đó đi HOẶC vào chặn Locket trong hồ sơ đó.
+- Toàn bộ khách dùng ID đó sẽ bị ngắt kết nối.
 
 ---
 
@@ -26,6 +30,6 @@ Mỗi khi sửa code, bạn cần chạy lệnh sau để cập nhật lên Verc
 
 ```bash
 git add .
-git commit -m "disable general link"
+git commit -m "update code"
 git push
 ```

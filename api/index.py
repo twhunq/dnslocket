@@ -1,32 +1,46 @@
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
+import re
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        # 1. Parse 'name' from query string
+        # 1. Parse query parameters
         query = parse_qs(urlparse(self.path).query)
         name = query.get('name', [''])[0].strip()
+        custom_id = query.get('id', [''])[0].strip()
         
         # 2. REQUIRED: Name must be present
         if not name:
             self.send_response(400)
             self.end_headers()
-            self.wfile.write(b"Error: Missing user name. Please use a link provided by admin. (Format: /dp/YourName)")
+            self.wfile.write(b"Error: Missing user name. (Format: /dp/Name?id=ID)")
             return
 
-        # 3. Base NextDNS ID (User's ID)
-        base_id = "8cb53e"
+        # 3. REQUIRED: ID must be present
+        if not custom_id:
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write(b"Error: Missing NextDNS ID. (Format: /dp/Name?id=ID)")
+            return
+
+        # 4. Validate ID
+        if re.match(r'^[a-zA-Z0-9]{6}$', custom_id):
+            final_id = custom_id
+        else:
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write(b"Error: Invalid NextDNS ID format.")
+            return
         
-        # 4. Construct Server URL
-        # Sanitize name to ensure it's valid for URL (basic alphanumeric + - _)
-        import re
+        # 5. Construct Server URL
+        # Sanitize name to ensure it's valid for URL
         safe_name = re.sub(r'[^a-zA-Z0-9_-]', '', name)
         if not safe_name: safe_name = "Device"
         
-        server_url = f"https://dns.nextdns.io/{base_id}/{safe_name}"
+        server_url = f"https://dns.nextdns.io/{final_id}/{safe_name}"
         profile_name = f"LOCKET GOLD - {safe_name}"
 
-        # 5. XML Template (Embedded to avoid file path issues on Vercel)
+        # 6. XML Template
         xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -76,7 +90,7 @@ class handler(BaseHTTPRequestHandler):
 </dict>
 </plist>"""
 
-        # 6. Send Response
+        # 7. Send Response
         self.send_response(200)
         self.send_header('Content-Type', 'application/x-apple-aspen-config')
         self.send_header('Content-Disposition', 'attachment; filename=KM.mobileconfig')
