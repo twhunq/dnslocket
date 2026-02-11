@@ -4,24 +4,21 @@
 
 **Link trang chủ (Link chung) đã bị vô hiệu hóa.**
 
-## Hướng dẫn tạo Link (Bắt buộc dùng ID)
+## Hướng dẫn tạo Link nhanh
+**Cấu trúc:** `https://dnslocket.vercel.app/ID_CUA_BAN`
 
-Bạn cần tạo ID trên NextDNS trước, sau đó gắn vào link.
-
-**Bước 1:** Vào NextDNS tạo Hồ sơ mới -> Lấy ID mới (ví dụ: `112233`).
-**Bước 2:** Cấu hình chặn thu hồi (xem file `NEXTDNS_GUIDE.md`) cho hồ sơ đó.
-**Bước 3:** Gửi link cho khách theo cấu trúc: `.../dp/TenKhach?id=ID`
-
-Cấu trúc: `https://dnslocket.vercel.app/dp/TenKhach?id=ID_CUA_BAN`
+**Bước 1:** Vào NextDNS tạo Hồ sơ mới -> Lấy ID mới (ví dụ: `ce1376` hoặc `112233`).
+**Bước 2:** Cấu hình chặn thu hồi cho hồ sơ đó (xem file `NEXTDNS_GUIDE.md`).
+**Bước 3:** Gửi thẳng ID cho khách.
 
 Ví dụ:
-- Khách A dùng ID `112233`: `https://dnslocket.vercel.app/dp/KhachA?id=112233`
-- Khách B dùng ID `224466`: `https://dnslocket.vercel.app/dp/KhachB?id=224466`
+- Khách dùng ID `ce1376`: `https://dnslocket.vercel.app/ce1376`
+- Khách dùng ID `112233`: `https://dnslocket.vercel.app/112233`
 
-### Cách hủy dịch vụ:
+### Cách quản lý:
 - Vào NextDNS -> Chọn hồ sơ tương ứng.
-- Xóa hồ sơ đó đi HOẶC vào chặn Locket trong hồ sơ đó.
-- Toàn bộ khách dùng ID đó sẽ bị ngắt kết nối.
+- Trong phần Logs, tên thiết bị sẽ hiện là `LOCKET GOLD - ID`.
+- Muốn cắt mạng -> Xóa hồ sơ đó đi HOẶC vào chặn Locket trong hồ sơ đó.
 
 ---
 

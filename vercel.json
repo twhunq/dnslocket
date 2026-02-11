@@ -1,12 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/dp/:name",
-      "destination": "/api/index.py?name=:name"
-    },
-    {
-      "source": "/",
-      "destination": "/api/index.py"
+      "source": "/:id",
+      "destination": "/api/index.py?id=:id"
     }
   ],
   "headers": [

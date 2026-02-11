@@ -6,41 +6,38 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         # 1. Parse query parameters
         query = parse_qs(urlparse(self.path).query)
-        name = query.get('name', [''])[0].strip()
+        
+        # 'id' can come from query param (if rewritten) or we might need to parse path
         custom_id = query.get('id', [''])[0].strip()
         
-        # 2. REQUIRED: Name must be present
+        # Optional name, otherwise default
+        name = query.get('name', [''])[0].strip()
         if not name:
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write(b"Error: Missing user name. (Format: /dp/Name?id=ID)")
-            return
+            name = "Device"
 
-        # 3. REQUIRED: ID must be present
+        # 2. REQUIRED: ID must be present
         if not custom_id:
             self.send_response(400)
             self.end_headers()
-            self.wfile.write(b"Error: Missing NextDNS ID. (Format: /dp/Name?id=ID)")
+            self.wfile.write(b"Error: ID_MISSING") 
             return
 
-        # 4. Validate ID
+        # 3. Validate ID (alphanumeric, 6 chars)
         if re.match(r'^[a-zA-Z0-9]{6}$', custom_id):
             final_id = custom_id
         else:
             self.send_response(400)
             self.end_headers()
-            self.wfile.write(b"Error: Invalid NextDNS ID format.")
+            self.wfile.write(b"Error: INVALID_ID")
             return
         
-        # 5. Construct Server URL
-        # Sanitize name to ensure it's valid for URL
+        # 4. Construct Server URL
         safe_name = re.sub(r'[^a-zA-Z0-9_-]', '', name)
-        if not safe_name: safe_name = "Device"
         
         server_url = f"https://dns.nextdns.io/{final_id}/{safe_name}"
-        profile_name = f"LOCKET GOLD - {safe_name}"
+        profile_name = f"LOCKET GOLD - {final_id}"
 
-        # 6. XML Template
+        # 5. XML Template
         xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -90,10 +87,10 @@ class handler(BaseHTTPRequestHandler):
 </dict>
 </plist>"""
 
-        # 7. Send Response
+        # 6. Send Response
         self.send_response(200)
         self.send_header('Content-Type', 'application/x-apple-aspen-config')
-        self.send_header('Content-Disposition', 'attachment; filename=KM.mobileconfig')
+        self.send_header('Content-Disposition', f'attachment; filename=LocketGold_{final_id}.mobileconfig')
         self.end_headers()
         self.wfile.write(xml_content.encode('utf-8'))
         return
